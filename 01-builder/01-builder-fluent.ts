@@ -32,14 +32,17 @@ namespace fluentBuilder {
             this.computer.cpu = cpu;
             return this;
         }
+
         setRAM(ram: string): ComputerBuilder {
             this.computer.ram = ram;
             return this;
         }
+
         setStorage(storage: string): ComputerBuilder {
             this.computer.storage = storage;
             return this;
         }
+
         setGPU(gpu: string): ComputerBuilder {
             this.computer.gpu = gpu;
             return this;
@@ -70,6 +73,7 @@ namespace fluentBuilder {
             .setStorage("512GB SSD")
             .build();
 
+            
         basicComputer.displayInfo();
 
 
