@@ -1,0 +1,393 @@
+/* ============================================================================
+ *  Estilos del juego — solo CSS + emoji (recursos 100% libres de derechos)
+ * ========================================================================== */
+
+.game {
+  margin: auto;
+  width: min(980px, 96vw);
+  padding: 18px 0 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ---------------------------------- HUD ---------------------------------- */
+.hud {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+}
+
+.hud .brand {
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+.hud .brand small {
+  color: var(--muted);
+  font-weight: 500;
+}
+.hud .spacer {
+  flex: 1;
+}
+.hud .stat {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+  padding: 0 12px;
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+}
+.hud .stat b {
+  font-size: 15px;
+}
+.hud .stat b.mono {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 13px;
+  color: var(--accent-2);
+}
+.hud .stat span {
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.pause-btn,
+.card button {
+  cursor: pointer;
+  font: inherit;
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 8px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+  transition: transform 0.12s ease, background 0.2s ease, border-color 0.2s ease;
+}
+.pause-btn:hover,
+.card button:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-1px);
+}
+
+/* -------------------------------- ESCENARIO ------------------------------- */
+.stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 30px 60px -22px rgba(0, 0, 0, 0.65),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  user-select: none;
+}
+.stage.shake {
+  animation: shake 0.35s ease;
+}
+@keyframes shake {
+  10%, 90% { transform: translateX(-2px); }
+  30%, 70% { transform: translateX(4px); }
+  50% { transform: translateX(-6px); }
+}
+
+/* Cielo, sol y nubes */
+.sky {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #243b8f 0%, #4f6fd6 45%, #9bb4f2 74%, #cfe3ff 100%);
+}
+.sun {
+  position: absolute;
+  top: 9%;
+  right: 13%;
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, #fff6c8, #ffd45e 58%, rgba(255, 212, 94, 0) 72%);
+  filter: drop-shadow(0 0 22px #ffd45e);
+}
+.cloud {
+  position: absolute;
+  height: 18px;
+  background: #fff;
+  border-radius: 999px;
+  opacity: 0.85;
+  box-shadow: 22px 6px 0 -2px #fff, -22px 6px 0 -3px #fff;
+}
+.cloud-a { top: 18%; left: 12%; width: 64px; animation: drift 14s ease-in-out infinite; }
+.cloud-b { top: 30%; left: 60%; width: 48px; animation: drift 18s ease-in-out infinite reverse; }
+.cloud-c { top: 12%; left: 40%; width: 40px; animation: drift 22s ease-in-out infinite; }
+@keyframes drift {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(26px); }
+}
+
+/* Colinas de fondo */
+.hills {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 18%;
+  height: 32%;
+}
+.hill {
+  position: absolute;
+  bottom: 0;
+  border-radius: 50% 50% 0 0;
+}
+.hill-1 { left: -4%; width: 38%; height: 78%; background: #2f9f63; }
+.hill-2 { left: 30%; width: 46%; height: 100%; background: #36ad6c; }
+.hill-3 { right: -6%; width: 40%; height: 70%; background: #2f9f63; }
+
+/* Suelo */
+.ground {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 18%;
+  background: linear-gradient(180deg, #4cb872, #2f9257);
+  box-shadow: inset 0 6px 0 rgba(255, 255, 255, 0.14);
+}
+.ground::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.05) 0 20px,
+    transparent 20px 40px
+  );
+}
+
+/* Portal central */
+.portal {
+  position: absolute;
+  bottom: 17%;
+  transform: translateX(-50%);
+  width: 92px;
+  height: 152px;
+}
+.portal-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(124, 92, 255, 0.95),
+    rgba(124, 92, 255, 0.18) 58%,
+    transparent 70%
+  );
+  box-shadow: 0 0 42px rgba(124, 92, 255, 0.8);
+  animation: portalPulse 2.4s ease-in-out infinite;
+}
+@keyframes portalPulse {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.08); opacity: 1; }
+}
+.portal-label {
+  position: absolute;
+  bottom: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 11px;
+  color: #fff;
+  opacity: 0.8;
+}
+
+/* ------------------------------- PERSONAJES ------------------------------- */
+.char {
+  position: absolute;
+  bottom: 18%;
+  transform: translateX(-50%);
+  will-change: left;
+  z-index: 2;
+}
+.char .flip {
+  display: block;
+}
+.sprite {
+  display: block;
+  font-size: clamp(34px, 6.4vw, 62px);
+  line-height: 1;
+  filter: drop-shadow(0 6px 4px rgba(0, 0, 0, 0.35));
+  animation: bob 1.8s ease-in-out infinite;
+}
+.char.walking .sprite {
+  animation-duration: 0.5s;
+}
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.feet-shadow {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 46px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.28);
+  filter: blur(2px);
+}
+
+/* Enemigos */
+.enemy {
+  animation: popin 0.3s ease;
+}
+.enemy .name {
+  position: absolute;
+  top: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 2px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.enemy .aura {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  width: 76px;
+  height: 76px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  opacity: 0.4;
+  filter: blur(7px);
+  z-index: -1;
+}
+.enemy.attacking .flip {
+  animation: lunge 0.18s ease;
+}
+@keyframes lunge {
+  50% { transform: translateX(-9px) scale(1.08); }
+}
+.enemy.exiting {
+  animation: popout 0.4s ease forwards;
+}
+@keyframes popin {
+  from { transform: translateX(-50%) scale(0.2); opacity: 0; }
+  to { transform: translateX(-50%) scale(1); opacity: 1; }
+}
+@keyframes popout {
+  to { transform: translateX(-50%) scale(0.2); opacity: 0; }
+}
+
+/* Proyectiles */
+.projectile {
+  position: absolute;
+  bottom: 25%;
+  transform: translateX(-50%);
+  font-size: clamp(18px, 3vw, 28px);
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.5));
+  animation: spin 0.7s linear infinite;
+  z-index: 3;
+}
+@keyframes spin {
+  to { transform: translateX(-50%) rotate(360deg); }
+}
+
+/* --------------------------- MENÚ / PAUSA (overlay) ----------------------- */
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(8, 12, 28, 0.55);
+  backdrop-filter: blur(6px);
+  z-index: 5;
+}
+.card {
+  width: min(420px, 88%);
+  text-align: center;
+  padding: 26px 26px 22px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(30, 38, 70, 0.92), rgba(18, 24, 48, 0.92));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.7);
+}
+.card h1 {
+  margin: 0 0 6px;
+  font-size: 30px;
+}
+.card .tagline {
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Selector de dificultad (segmented control) */
+.seg {
+  display: inline-flex;
+  padding: 4px;
+  gap: 4px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.seg button {
+  border: 1px solid transparent;
+  background: transparent;
+}
+.seg button.active {
+  background: linear-gradient(180deg, var(--accent), #5b3fe0);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.factory-note {
+  margin: 16px 0 18px;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.factory-note code,
+.mono {
+  font-family: ui-monospace, Consolas, monospace;
+}
+.factory-note code {
+  color: var(--accent-2);
+  background: rgba(34, 211, 238, 0.1);
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+.card button.primary {
+  background: linear-gradient(180deg, var(--accent), #5b3fe0);
+  border-color: rgba(255, 255, 255, 0.25);
+  font-weight: 600;
+}
+.card .controls {
+  margin: 16px 0 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.hint {
+  margin: 0;
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+@media (max-width: 720px) {
+  .hud .brand small,
+  .hud .stat:nth-child(4) {
+    display: none;
+  }
+  .hud .stat {
+    padding: 0 8px;
+  }
+}
