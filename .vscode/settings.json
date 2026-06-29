@@ -1,0 +1,7 @@
+{
+  "deno.enablePaths": [
+    "estructurales/01-adapter/logger"
+  ],
+  "deno.lint": true,
+  "deno.unstable": true
+}

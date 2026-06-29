@@ -13,6 +13,7 @@ export async function getProducts(_req: Request, res: Response): Promise<void> {
   try {
     // Llamamos al método findAll del repositorio para obtener todos los productos.
     const products = await repository.findAll()
+    
     // Respondemos con un JSON que contiene los productos.
     res.json({ data: products })
   } catch (error) {
