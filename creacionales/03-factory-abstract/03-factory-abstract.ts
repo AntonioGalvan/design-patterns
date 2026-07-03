@@ -33,8 +33,8 @@ namespace AbstractFactory {
 
     //Interface factory
     interface ComboFactory {
-        createHamburger(): Hamburger;
-        createDrink(): Drink;
+        createHamburger(): Hamburger; // Producto 1
+        createDrink(): Drink; // Producto 2
     }
 
     class FastFoodFactory implements ComboFactory {

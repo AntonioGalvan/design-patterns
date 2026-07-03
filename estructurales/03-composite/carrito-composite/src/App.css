@@ -1,0 +1,94 @@
+.pagina header {
+  padding: 20px 28px;
+  border-bottom: 1px solid #1e293b;
+}
+.pagina header h1 {
+  margin: 0 0 4px;
+  font-size: 1.5rem;
+}
+.pagina header p {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+main {
+  display: flex;
+  gap: 24px;
+  padding: 24px 28px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.tienda {
+  width: 240px;
+}
+.tienda h2 {
+  font-size: 1rem;
+  color: #cbd5e1;
+  margin: 0 0 12px;
+}
+.tienda button {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 12px 14px;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  background: #1e293b;
+  color: #e2e8f0;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s;
+}
+.tienda button:hover {
+  background: #334155;
+}
+.tienda button:last-child {
+  border-color: #4f46e5;
+  color: #c7d2fe;
+}
+
+.panel {
+  flex: 1;
+  min-width: 320px;
+  background: #1e293b;
+  border-radius: 12px;
+  padding: 18px;
+}
+
+.producto {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background: #0f172a;
+  margin-bottom: 6px;
+}
+
+.combo {
+  border-left: 3px solid #6366f1;
+  padding-left: 14px;
+  margin: 8px 0 8px 4px;
+}
+.combo-titulo {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  color: #a5b4fc;
+  padding: 6px 12px;
+}
+
+.total-barra {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid #334155;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+.total-barra span:last-child {
+  color: #34d399;
+}

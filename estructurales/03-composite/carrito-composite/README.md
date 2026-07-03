@@ -1,0 +1,1 @@
+# Patrón Composite en React + TypeScript — Carrito de compras
