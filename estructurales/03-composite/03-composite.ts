@@ -47,7 +47,7 @@ namespace CompositePattern {
 
         const folder2 = new Folder("Carpeta2");
         folder2.add(file3);
-        
+
         const folder3 = new Folder("Carpeta3");
         folder3.add(file4);
 
